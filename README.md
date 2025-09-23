@@ -78,7 +78,6 @@ DELETE /api/v1/admin/admins/{user_id}     # 관리자 권한 해제
 
 GET    /api/v1/admin/admins/{user_id}/permissions # 권한 조회
 
-# ===== 합주 관리 =====
 ## Ensembles
 GET    /api/v1/ensembles                  # 합주 목록 조회
 ?status={incomplete|completed}&session={session}&page={page}&limit={limit}
@@ -96,7 +95,7 @@ PUT    /api/v1/ensembles/{ensemble_id}   # 합주 수정
 
 DELETE /api/v1/ensembles/{ensemble_id}   # 합주 삭제
 
-## Ensemble Sessions (세션 신청)
+## Ensemble Sessions
 GET    /api/v1/ensembles/{ensemble_id}/sessions     # 합주 세션 정보
 
 POST   /api/v1/ensembles/{ensemble_id}/sessions/apply # 세션 신청
@@ -104,7 +103,6 @@ Body: {"session_type": "vocal", "user_id": "20250001"}
 
 DELETE /api/v1/ensembles/{ensemble_id}/sessions/{session_type} # 세션 신청 취소
 
-# ===== 시간표 관리 =====
 ## Timeslots
 GET    /api/v1/timeslots                 # 시간표 목록
 ?date={date}&view={daily|weekly|monthly}&ensemble_id={id}&user_id={id}
@@ -119,13 +117,12 @@ PUT    /api/v1/timeslots/{timeslot_id}  # 시간표 수정
 
 DELETE /api/v1/timeslots/{timeslot_id}  # 시간표 삭제
 
-## Schedule Views (일정 조회 - 쿼리 파라미터로 통합)
+## Schedule Views
 GET    /api/v1/timeslots/schedule        # 일정 조회
 ?date=2023-10-15&view=daily       # 특정 날짜 일정
 ?date=2023-10-15&view=weekly      # 주간 일정
 ?month=2023-10&view=monthly       # 월간 일정
 
-# ===== 이벤트 관리 =====
 ## Events
 GET    /api/v1/events                   # 이벤트 목록
 ?status={upcoming|available|past}&page={page}&limit={limit}
@@ -146,7 +143,6 @@ Body: {"user_id": "20250001"}
 
 DELETE /api/v1/events/{event_id}/participants/{user_id} # 참가 취소
 
-# ===== 알림 관리 =====
 ## Notifications
 GET    /api/v1/notifications            # 내 알림 목록
 ?status={read|unread}&page={page}&limit={limit}
@@ -157,7 +153,6 @@ PUT    /api/v1/notifications/{notification_id}/read  # 알림 읽음 처리 (POS
 
 PUT    /api/v1/notifications/read-all   # 모든 알림 읽음 처리
 
-# ===== 신청 관리 =====
 ## Applications
 GET    /api/v1/applications             # 신청 목록
 ?type={ensemble|timeslot|session}&status={pending|approved|rejected}&page={page}
