@@ -1,4 +1,4 @@
-# NLWeb Application
+# nlWeb Backend API
 
 ## 🚀 Quick Start with Docker
 
@@ -166,5 +166,3 @@ POST   /api/v1/applications/{ensemble_id}/sessions   # 세션 신청
 POST   /api/v1/applications/{ensemble_id}/timeslots  # 시간표 생성 신청
 
 GET    /api/v1/applications/{application_id} # 특정 신청 조회
-
-# nlWeb-BE
