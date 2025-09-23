@@ -53,3 +53,5 @@ WARP.md
 bash/
 docker/DOCKER_DEPLOYMENT.md
 Dockerfile
+
+.DS_Store
