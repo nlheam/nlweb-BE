@@ -54,4 +54,7 @@ bash/
 docker/DOCKER_DEPLOYMENT.md
 Dockerfile
 
+# Docker secrets (exclude actual secrets but keep templates)
+docker/secrets/*.txt
+
 .DS_Store

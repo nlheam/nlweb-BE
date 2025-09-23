@@ -6,7 +6,9 @@ services:
     environment:
       POSTGRES_DB: nlweb
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: nlweb-team
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    secrets:
+      - postgres_password
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d:ro
@@ -43,11 +45,12 @@ services:
   app:
     image: klatmddud/nlweb-backend:latest
     container_name: nlweb-backend
+    secrets:
+      - spring_datasource_password
     environment:
       # Database Configuration
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/nlweb
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: nlweb-team
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
       
       # JPA/Hibernate Configuration
@@ -90,6 +93,9 @@ services:
       - nlweb-network
     volumes:
       - ./logs:/app/logs
+      - ./entrypoint.sh:/entrypoint.sh:ro
+    entrypoint: ["/entrypoint.sh"]
+    command: ["java", "-jar", "/app/app.jar"]
     restart: unless-stopped
 
 volumes:
@@ -101,3 +107,9 @@ volumes:
 networks:
   nlweb-network:
     driver: bridge
+
+secrets:
+  postgres_password:
+    file: ./secrets/postgres_password.txt
+  spring_datasource_password:
+    file: ./secrets/spring_datasource_password.txt
