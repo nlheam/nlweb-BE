@@ -1,0 +1,103 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: nlweb-postgres
+    environment:
+      POSTGRES_DB: nlweb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: nlweb-team
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5432:5432"
+    networks:
+      - nlweb-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d nlweb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: nlweb-redis
+    command: redis-server
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    expose:
+      - "6379"
+    networks:
+      - nlweb-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Spring Boot Application
+  app:
+    image: klatmddud/nlweb-backend:latest
+    container_name: nlweb-backend
+    environment:
+      # Database Configuration
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/nlweb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: nlweb-team
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      
+      # JPA/Hibernate Configuration
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      
+      # Redis Configuration
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_DATA_REDIS_TIMEOUT: 2000ms
+      
+      # Cache Configuration
+      SPRING_CACHE_TYPE: redis
+      SPRING_CACHE_REDIS_TIME_TO_LIVE: 600000
+      
+      # Flyway Configuration
+      SPRING_FLYWAY_ENABLED: true
+      SPRING_FLYWAY_LOCATIONS: classpath:db/migration
+      
+      # Application Configuration
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8080
+      
+      # Logging
+      LOGGING_LEVEL_COM_NLWEB: DEBUG
+      LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB: DEBUG
+      
+      # Management/Actuator
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: health,info,metrics,prometheus
+      MANAGEMENT_ENDPOINT_HEALTH_SHOW_DETAILS: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - nlweb-network
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  nlweb-network:
+    driver: bridge

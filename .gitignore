@@ -1,0 +1,55 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### application config ###
+application.yml
+application-dev.yml
+application.properties
+
+/src/main/java/com/nlweb/config
+/src/main/java/com/nlweb/exception
+/src/main/java/com/nlweb/security
+/src/main/java/com/nlweb/validation
+/src/main/resources/db
+/src/main/resources/logback-spring.xml
+
+WARP.md
+
+bash/
+docker/DOCKER_DEPLOYMENT.md
+Dockerfile
