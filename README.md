@@ -2,10 +2,6 @@
 
 Initial commit for the nlweb-backend repository.
 
-# nlweb-backend
-
-This is the backend for the nlweb application.
-
 # NLWeb Application
 
 ## 🚀 Quick Start with Docker
