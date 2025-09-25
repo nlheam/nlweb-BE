@@ -90,7 +90,6 @@ services:
       - nlweb-network
     volumes:
       - ./logs:/app/logs
-    restart: unless-stopped
 
 volumes:
   postgres_data:
