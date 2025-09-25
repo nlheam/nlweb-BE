@@ -24,9 +24,9 @@ services:
   redis:
     image: redis:7-alpine
     container_name: nlweb-redis
-    command: redis-server
+    command: redis-server --appendonly yes
     volumes:
-      - redis_data:/data
+      - redis_data:/data/
     ports:
       - "6379:6379"
     expose:
@@ -90,6 +90,7 @@ services:
       - nlweb-network
     volumes:
       - ./logs:/app/logs
+    restart: on-failure
 
 volumes:
   postgres_data:
