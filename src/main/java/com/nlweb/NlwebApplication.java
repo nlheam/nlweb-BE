@@ -1,22 +1,13 @@
 package com.nlweb;
 
-import com.nlweb.entity.User;
-import com.nlweb.enums.UserSessionType;
-import com.nlweb.enums.UserStatus;
-import com.nlweb.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -25,10 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.ZoneId;
-import java.util.List;
-import java.util.Optional;
 import java.util.TimeZone;
-import java.util.function.Function;
 
 @Slf4j
 @EnableJpaAuditing
@@ -37,7 +25,7 @@ import java.util.function.Function;
 @EnableScheduling
 @EnableTransactionManagement
 @EnableConfigurationProperties
-@EnableJpaRepositories(basePackages = "com.nlweb.repository")
+@EnableJpaRepositories(basePackages = "com.nlweb.**.repository")
 @SpringBootConfiguration
 @SpringBootApplication
 public class NlwebApplication {

@@ -42,11 +42,16 @@ application-dev.yml
 application.properties
 
 /src/main/java/com/nlweb/config
-/src/main/java/com/nlweb/exception
-/src/main/java/com/nlweb/security
-/src/main/java/com/nlweb/validation
+
+src/main/java/com/nlweb/common/runner/
+src/main/java/com/nlweb/common/initializer
+src/main/java/com/nlweb/common/validation
+src/main/java/com/nlweb/common/security
+src/main/java/com/nlweb/common/exception
+
 /src/main/resources/db
 /src/main/resources/logback-spring.xml
+
 
 WARP.md
 

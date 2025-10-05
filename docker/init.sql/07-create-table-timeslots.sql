@@ -1,7 +1,6 @@
 create table if not exists timeslots (
     id serial primary key,
     ensemble_id INTEGER not null references ensembles(id) on delete cascade,
-    event_id INTEGER not null references events(id) on delete cascade,
     day_of_week varchar(10) not null check (
         day_of_week in ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY')
     ),
@@ -22,6 +21,5 @@ create table if not exists timeslots (
 );
 
 create index idx_timeslots_ensemble_id on timeslots(ensemble_id);
-create index idx_timeslots_event_id on timeslots(event_id);
 create index idx_timeslots_day_of_week on timeslots(day_of_week);
 create index idx_timeslots_excluded_dates on timeslots using gin (excluded_dates);

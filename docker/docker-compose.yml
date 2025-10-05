@@ -43,6 +43,9 @@ services:
   app:
     image: klatmddud/nlweb-backend:latest
     container_name: nlweb-backend
+#    build:
+#        context: ../.
+#        dockerfile: Dockerfile
     environment:
       # Database Configuration
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/nlweb

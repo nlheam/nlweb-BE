@@ -29,7 +29,6 @@ SELECT EXISTS(
         SELECT COALESCE(root_event, id) FROM events WHERE id = NEW.event_id
     )
       AND e.event_type = 'EVENT_APPLICATION'
-      AND ep.application_status = 'APPROVED'
 ) INTO v_has_parent_approval;
 
 IF NOT v_has_parent_approval THEN

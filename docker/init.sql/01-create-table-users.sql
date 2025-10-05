@@ -9,6 +9,7 @@ create table if not exists users (
     session varchar(10) not null check (session in ('VOCAL', 'GUITAR', 'BASS', 'DRUM', 'KEYBOARD', 'NONE')),
     status varchar(20) default 'PENDING' check (status in ('PENDING', 'ACTIVE', 'INACTIVE', 'REJECTED', 'SUSPENDED', 'DELETED')),
     is_vocalable boolean default false,
+    is_admin boolean default false,
     last_login timestamp with time zone,
     created_at timestamp with time zone default current_timestamp,
     updated_at timestamp with time zone default current_timestamp,

@@ -9,14 +9,13 @@ create table if not exists events (
     start_datetime timestamp with time zone not null,
     end_datetime timestamp with time zone not null,
 
-    -- 계층 구조화
     parent_event INTEGER references events(id) on delete cascade on update cascade,
     depth integer not null default 0 check (depth >= 0),
     root_event integer references events(id) on delete cascade on update cascade,
 
     created_by INTEGER references admins(id) on delete set null on update cascade,
-    created_by_name varchar(30) not null, --기록용 이름
     is_active boolean default true,
+    is_votable boolean default false,
 
     max_participants INTEGER default 0 check (max_participants >= 0),
     current_participants INTEGER default 0 check (current_participants >= 0),
