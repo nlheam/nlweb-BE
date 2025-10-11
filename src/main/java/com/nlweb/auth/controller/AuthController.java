@@ -21,13 +21,12 @@ import jakarta.validation.Valid;
 @Tag(name = "인증 API", description = "회원가입, 로그인, 토큰")
 @Slf4j
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 @Validated
 public class AuthController {
 
     private final AuthService authService;
-    private final UserService userService;
 
     /** 회원가입 */
     @Operation(summary = "회원가입", description = "새로운 사용자를 등록합니다.")
@@ -62,9 +61,9 @@ public class AuthController {
     @Operation(summary = "비밀번호 변경", description = "현재 비밀번호를 확인하고 새 비밀번호로 변경합니다.")
     @PostMapping("/change-password")
     public ResponseEntity<ApiResponse<Void>> changePassword(
-            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @AuthenticationPrincipal CustomUserDetails principal,
             @RequestBody @Valid ChangePasswordRequest changePasswordRequest) {
-        authService.changePassword(userDetails.getUsername(), changePasswordRequest);
+        authService.changePassword(principal.getUsername(), changePasswordRequest);
         return ResponseEntity.ok(ApiResponse.success(null));
     }
 

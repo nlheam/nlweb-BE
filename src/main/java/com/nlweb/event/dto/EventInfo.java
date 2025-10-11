@@ -30,7 +30,6 @@ public class EventInfo {
                 .description(event.getDescription())
                 .eventType(event.getEventType().toString())
                 .isActive(event.getIsActive())
-                .isVotable(event.getIsVotable())
                 .maxParticipants(event.getMaxParticipants())
                 .currentParticipants(event.getCurrentParticipants())
                 .startDateTime(event.getStartDateTime())

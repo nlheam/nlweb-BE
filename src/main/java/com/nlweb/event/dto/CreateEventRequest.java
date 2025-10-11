@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 @Data
 public class CreateEventRequest {
 
-    private Long parentEventId; // 하위 이벤트인 경우
-
     @NotBlank(message = "이벤트 제목은 필수입니다")
     @Size(min = 2, max = 200, message = "제목은 2자 이상 200자 이하여야 합니다")
     private String title;
@@ -26,6 +24,16 @@ public class CreateEventRequest {
     @NotNull(message = "종료 일시는 필수입니다")
     @Future(message = "종료 일시는 현재 시간 이후여야 합니다")
     private LocalDateTime endDatetime;
+
+    @NotNull(message = "참여 투표 시작 일시는 필수입니다")
+    @Future(message = "참여 투표 시작 일시는 현재 시간 이후여야 합니다")
+    private LocalDateTime votingStartDateTime;
+
+    @NotNull(message = "참여 투표 종료 일시는 필수입니다")
+    @Future(message = "참여 투표 종료 일시는 현재 시간 이후여야 합니다")
+    private LocalDateTime votingEndDateTime;
+
+    private Long parentEventId;
 
     @Min(value = 1, message = "최대 참가자 수는 1명 이상이어야 합니다")
     private Integer maxParticipants;

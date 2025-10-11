@@ -41,7 +41,7 @@ services:
 
   # Spring Boot Application
   app:
-    image: klatmddud/nlweb-backend:latest
+    image: klatmddud/nlweb-backend:dev
     container_name: nlweb-backend
 #    build:
 #        context: ../.

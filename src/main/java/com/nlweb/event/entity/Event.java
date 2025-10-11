@@ -9,14 +9,19 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.io.Serial;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "events")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(exclude = {"parentEvent", "childEvents", "createdBy", "rootEvent"})
+@ToString(exclude = {"parentEvent", "childEvents", "createdBy", "rootEvent", "votingProfile"})
 @EntityListeners(AuditingEntityListener.class)
-public class Event {
+public class Event implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,9 +72,6 @@ public class Event {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    @Column(name = "is_votable", nullable = false)
-    private Boolean isVotable;
-
     @Setter
     @Column(name = "max_participants", nullable = false)
     private Integer maxParticipants;
@@ -91,7 +93,8 @@ public class Event {
 
     @Builder
     public Event(Admin createdBy, Event parentEvent, String title, String description, EventType eventType, Integer depth,
-                 LocalDateTime startDateTime, LocalDateTime endDateTime, Integer maxParticipants, Event rootEvent) {
+                 LocalDateTime startDateTime, LocalDateTime endDateTime, Integer maxParticipants,
+                 Event rootEvent) {
         this.title = title;
         this.description = description;
         this.eventType = eventType;
@@ -102,7 +105,6 @@ public class Event {
         this.depth = depth;
         this.createdBy = createdBy;
         this.isActive = true;
-        this.isVotable = false;
         this.maxParticipants = maxParticipants;
         this.currentParticipants = 0;
     }
@@ -113,14 +115,6 @@ public class Event {
 
     public void deactivate() {
         this.isActive = false;
-    }
-
-    public void enableVoting() {
-        this.isVotable = true;
-    }
-
-    public void disableVoting() {
-        this.isVotable = false;
     }
 
     public void incrementParticipants() {
@@ -137,7 +131,4 @@ public class Event {
         return this.isActive;
     }
 
-    public boolean isVotable() {
-        return this.isVotable;
-    }
 }

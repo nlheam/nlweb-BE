@@ -7,6 +7,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.io.Serial;
 
 @Entity
 @Table(name = "event_participants",
@@ -15,7 +17,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(exclude = {"event", "user"})
 @EntityListeners(AuditingEntityListener.class)
-public class EventParticipant {
+public class EventParticipant implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

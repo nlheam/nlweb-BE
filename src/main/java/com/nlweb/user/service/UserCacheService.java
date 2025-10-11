@@ -31,17 +31,17 @@ public class UserCacheService {
         return userRepository.findByStatus(UserStatus.PENDING);
     }
 
-    @Cacheable(value = "user", key = "#id")
+    @Cacheable(value = "user", key = "'id:' + #id")
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
-    @Cacheable(value = "user", key = "#studentId")
+    @Cacheable(value = "user", key = "'studentId:' + #studentId")
     public Optional<User> getUserByStudentId(String studentId) {
         return userRepository.findByStudentId(studentId);
     }
 
-    @Cacheable(value = "user", key = "#email")
+    @Cacheable(value = "user", key = "'email:' + #email")
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -61,22 +61,22 @@ public class UserCacheService {
         return userRepository.findByBatchAndStatusOrderByBatchAsc(batch, UserStatus.ACTIVE);
     }
 
-    @Cacheable(value = "user", key = "#id")
+    @Cacheable(value = "user", key = "'exists:id:' + #id")
     public boolean isUserExistsById(Long id) {
         return userRepository.existsById(id);
     }
 
-    @Cacheable(value = "user", key = "#studentId")
+    @Cacheable(value = "user", key = "'exists:studentId:' + #studentId")
     public boolean isUserExistsByStudentId(String studentId) {
         return userRepository.existsByStudentId(studentId);
     }
 
-    @Cacheable(value = "user", key = "#email")
+    @Cacheable(value = "user", key = "'exists:email:' + #email")
     public boolean isUserExistsByEmail(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
 
-    @Cacheable(value = "user", key = "#phone")
+    @Cacheable(value = "user", key = "'exists:phone:' + #phone")
     public boolean isUserExistsByPhone(String phone) {
         return userRepository.findByPhone(phone).isPresent();
     }
@@ -96,12 +96,12 @@ public class UserCacheService {
         log.debug("대기 사용자 캐시 삭제");
     }
 
-    @CacheEvict(value = {"user"}, key = "#id")
+    @CacheEvict(value = {"user"}, key = "'id:' + #id")
     public void evictUserCacheById(Long id) {
         log.debug("사용자 캐시 삭제: Id = {}", id);
     }
 
-    @CacheEvict(value = {"user"}, key = "#studentId")
+    @CacheEvict(value = {"user"}, key = "'studentId:' + #studentId")
     public void evictUserCacheByStudentId(String studentId) {
         log.debug("사용자 캐시 삭제: studentId = {}", studentId);
     }

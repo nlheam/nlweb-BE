@@ -24,7 +24,7 @@ import java.util.List;
 @Tag(name = "관리자 API", description = "관리자 전용 기능")
 @Slf4j
 @RestController
-@RequestMapping("/api/admins")
+@RequestMapping("/admins")
 @RequiredArgsConstructor
 @Validated
 public class AdminController {

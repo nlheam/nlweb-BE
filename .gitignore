@@ -52,13 +52,20 @@ src/main/java/com/nlweb/common/exception
 /src/main/resources/db
 /src/main/resources/logback-spring.xml
 
+src/test
 
 WARP.md
 
 bash/
 docker/DOCKER_DEPLOYMENT.md
+docker/docker-compose.test.yml
+docker/test-deploy.sh
+docker/TEST_DEPLOYMENT.md
 Dockerfile
 
 .DS_Store
 
 .env
+/src/main/resources/application-test.yml
+/TESTING.md
+/Dockerfile.test

@@ -69,3 +69,40 @@ DELETE /api/admins/{studentId}                    # 관리자 권한 해제
 GET    /api/admins/users/pending                # 승인 대기 사용자
 
 PATCH  /api/admins/users/status     # 사용자 상태 변경
+
+### Events (이벤트)
+POST   /api/events                             # 이벤트 생성
+
+GET    /api/events                             # 이벤트 목록 조회
+
+GET    /api/events/{eventId}                   # 특정 이벤트 조회
+
+GET    /api/events/active                      # 활성화된 이벤트 조회
+
+GET    /api/events/ongoing                     # 진행 중인 이벤트 조회
+
+GET    /api/events/upcoming                    # 예정된 이벤트 조회
+
+GET    /api/events/past                        # 지난 이벤트 조회
+
+GET    /api/events/{eventType}                 # 타입별 이벤트 조회
+
+PATCH  /api/events/{eventId}                   # 이벤트 수정
+
+PATCH  /api/events/{eventId}/activate          # 이벤트 활성화
+
+PATCH  /api/events/{eventId}/deactivate        # 이벤트 비활성화
+
+DELETE /api/events/{eventId}                   # 이벤트 삭제
+
+GET    /api/events/{eventId}/participants      # 이벤트 참가자 목록
+
+POST   /api/events/{eventId}/participants      # 이벤트 참가자 생성
+
+DELETE /api/events/{eventId}/participants/{studentId} # 이벤트 참가자 삭제
+
+POST   /api/events/{eventId}/apply             # 이벤트 참가 신청
+
+DELETE /api/events/{eventId}/cancel            # 이벤트 참가 신청 취소
+
+GET    /api/events/{eventId}/me                # 내가 참가한 이벤트 조회

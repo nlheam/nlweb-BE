@@ -22,7 +22,7 @@ public class EventCacheService {
     private final EventRepository eventRepository;
 
     /** 이벤트 ID로 이벤트 조회 */
-    @Cacheable(value = "event", key = "#id")
+    @Cacheable(value = "event", key = "#id", unless = "#result == null")
     public Optional<Event> getEventById(Long id) {
         return eventRepository.findById(id);
     }
@@ -37,12 +37,6 @@ public class EventCacheService {
     @Cacheable(value = "events:active")
     public List<Event> getAllActiveEvents() {
         return eventRepository.findByIsActiveTrueOrderByStartDateTimeAsc();
-    }
-
-    /** 모든 투표 가능한 이벤트 조회 */
-    @Cacheable(value = "events:votable")
-    public List<Event> getAllVotableEvents() {
-        return eventRepository.findByIsVotableTrueOrderByStartDateTimeAsc();
     }
 
     /** 모든 다가오는 이벤트 조회 */
@@ -81,6 +75,21 @@ public class EventCacheService {
     }, allEntries = true)
     public void evictAllEventCaches() {
         log.debug("모든 이벤트 캐시 삭제");
+    }
+
+    /** 이벤트 저장 및 캐시 무효화 */
+    @Transactional
+    public Event saveEvent(Event event) {
+        Event savedEvent = eventRepository.save(event);
+        evictAllEventCaches(); // 캐시 무효화
+        return savedEvent;
+    }
+
+    /** 이벤트 삭제 및 캐시 무효화 */
+    @Transactional
+    public void deleteEvent(Long id) {
+        eventRepository.deleteById(id);
+        evictAllEventCaches(); // 캐시 무효화
     }
 
 }

@@ -24,22 +24,22 @@ public class AdminCacheService {
         return adminRepository.findAllAdmins();
     }
 
-    @Cacheable(value = "admin", key = "#studentId")
+    @Cacheable(value = "admin", key = "'exists:userId:' + #userId")
     public boolean isAdmin(Long userId) {
         return adminRepository.existsByUserId(userId);
     }
 
-    @Cacheable(value = "admin", key = "#studentId")
+    @Cacheable(value = "admin", key = "'exists:studentId:' + #studentId")
     public boolean isAdmin(String studentId) {
         return adminRepository.existsByStudentId(studentId);
     }
 
-    @Cacheable(value = "admin", key = "#userId")
+    @Cacheable(value = "admin", key = "'userId:' + #userId")
     public Optional<Admin> getAdmin(Long userId) {
         return adminRepository.findByUserId(userId);
     }
 
-    @Cacheable(value = "admin", key = "#studentId")
+    @Cacheable(value = "admin", key = "'studentId:' + #studentId")
     public Optional<Admin> getAdmin(String studentId) {
         return adminRepository.findByStudentId(studentId);
     }
@@ -49,12 +49,12 @@ public class AdminCacheService {
         log.debug("모든 관리자 캐시 삭제");
     }
 
-    @CacheEvict(value = {"admin"}, key = "#userId")
+    @CacheEvict(value = {"admin"}, key = "'userId:' + #userId")
     public void evictAdminCache(Long userId) {
         log.debug("관리자 캐시 삭제: Id = {}", userId);
     }
 
-    @CacheEvict(value = {"admin"}, key = "#studentId")
+    @CacheEvict(value = {"admin"}, key = "'studentId:' + #studentId")
     public void evictAdminCache(String studentId) {
         log.debug("관리자 캐시 삭제: studentId = {}", studentId);
     }

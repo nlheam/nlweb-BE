@@ -19,4 +19,8 @@ public class UpdateEventRequest {
 
     private Integer maxParticipants;
 
+    private LocalDateTime votingStartDateTime;
+
+    private LocalDateTime votingEndDateTime;
+
 }

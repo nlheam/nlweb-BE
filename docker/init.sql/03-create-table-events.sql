@@ -15,7 +15,6 @@ create table if not exists events (
 
     created_by INTEGER references admins(id) on delete set null on update cascade,
     is_active boolean default true,
-    is_votable boolean default false,
 
     max_participants INTEGER default 0 check (max_participants >= 0),
     current_participants INTEGER default 0 check (current_participants >= 0),

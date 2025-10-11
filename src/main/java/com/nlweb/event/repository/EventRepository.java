@@ -22,11 +22,16 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     /** 활성화된 이벤트를 시작 날짜 기준 오름차순으로 조회 */
     List<Event> findByIsActiveTrueOrderByStartDateTimeAsc();
 
-    /** 투표 가능한 이벤트를 시작 날짜 기준 오름차순으로 조회 */
-    List<Event> findByIsVotableTrueOrderByStartDateTimeAsc();
-
     /** 이벤트 타입별 이벤트를 시작 날짜 기준 오름차순으로 조회 */
     List<Event> findByEventTypeOrderByStartDateTimeAsc(EventType eventType);
+
+    /** 상위 이벤트로 하위 이벤트 목록 조회 */
+    List<Event> findByParentEvent(Event parentEvent);
+
+    /** 참가자 ID로 이벤트 목록 조회 (참가자 기준) */
+    @Query("SELECT e FROM Event e JOIN EventParticipant ep ON e.id = ep.event.id " +
+           "WHERE ep.id = :id ORDER BY e.startDateTime")
+    List<Event> findAllByEventParticipantId(Long id);
 
     /** 다가오는 이벤트 조회 */
     @Query("SELECT e FROM Event e " +
