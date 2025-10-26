@@ -44,3 +44,5 @@ build/reports/
 # Temporary files
 *.tmp
 *.temp
+
+src/test/

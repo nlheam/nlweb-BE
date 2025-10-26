@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Table(name = "events")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(exclude = {"parentEvent", "childEvents", "createdBy", "rootEvent", "votingProfile"})
+@ToString(exclude = {"parentEvent", "childEvents", "createdBy", "rootEvent"})
 @EntityListeners(AuditingEntityListener.class)
 public class Event implements Serializable {
 

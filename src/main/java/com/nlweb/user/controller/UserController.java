@@ -85,7 +85,7 @@ public class UserController {
 
     /** 내 정보 복구 */
     @Operation(summary = "내 정보 복구", description = "삭제된 계정을 복구합니다. (6개월 이내)")
-    @PostMapping("/me/revive")
+    @PostMapping("/me/restoration")
     public ResponseEntity<ApiResponse<UserInfo>> reviveMyInfo(
             @AuthenticationPrincipal CustomUserDetails principal) {
 

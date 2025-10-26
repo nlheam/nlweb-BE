@@ -19,6 +19,10 @@ public interface EnsembleRepository extends JpaRepository<Ensemble, Long> {
     /** 활성화 합주 목록 조회 */
     List<Ensemble> findByIsActiveTrue();
 
+    /** 특정 user가 속한 모든 합주 목록 조회 */
+    @Query("SELECT e FROM Ensemble e JOIN e.members m WHERE m.user.id = :userId")
+    List<Ensemble> findByMemberUserId(@Param("userId") Long userId);
+
     /** 아티스트 명으로 합주 목록 조회 */
     List<Ensemble> findByArtistContainingIgnoreCase(String artist);
 

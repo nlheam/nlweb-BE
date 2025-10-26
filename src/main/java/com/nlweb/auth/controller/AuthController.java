@@ -69,7 +69,7 @@ public class AuthController {
 
     /** 토큰 재발급 */
     @Operation(summary = "토큰 재발급", description = "만료된 액세스 토큰을 리프레시 토큰으로 재발급합니다.")
-    @PostMapping("/refresh")
+    @PostMapping("/tokens")
     public ResponseEntity<ApiResponse<TokenResponse>> refreshToken(
             @RequestBody @Valid RefreshTokenRequest request,
             HttpServletRequest httpRequest) {

@@ -189,7 +189,7 @@ public class EventController {
 
     /** 이벤트 참가 신청 (사용자 본인) */
     @Operation(summary = "이벤트 참가 신청 (사용자 본인)", description = "사용자가 본인의 학번으로 이벤트 참가를 신청합니다.")
-    @PostMapping("/{eventId}/apply")
+    @PostMapping("/{eventId}/participants/me")
     public ResponseEntity<ApiResponse<CreateEventParticipantResponse>> applyEvent (
             @PathVariable("eventId") Long eventId,
             @Valid @RequestBody CreateEventParticipantRequest request,
@@ -201,7 +201,7 @@ public class EventController {
 
     /** 이벤트 참가 신청 취소 (사용자 본인) */
     @Operation(summary = "이벤트 참가 신청 취소 (사용자 본인)", description = "사용자가 본인의 학번으로 이벤트 참가 신청을 취소합니다.")
-    @DeleteMapping("/{eventId}/cancel")
+    @DeleteMapping("/{eventId}/participants/me")
     public ResponseEntity<ApiResponse<Void>> cancleEventApplication (
             @PathVariable("eventId") Long eventId,
             @AuthenticationPrincipal CustomUserDetails principal) {

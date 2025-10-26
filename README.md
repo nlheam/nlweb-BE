@@ -31,7 +31,7 @@ POST   /api/auth/change-password       # 비밀번호 변경
 
 POST   /api/auth/reset-password        # 비밀번호 재설정 (이메일 발송) - 아직 구현 안 함
 
-POST   /api/auth/refresh               # 토큰 재발급
+POST   /api/auth/tokens                # 토큰 재발급
 
 GET    /api/auth/verify                # 토큰 검증
 
@@ -46,7 +46,7 @@ PATCH  /api/users/me                     # 내 정보 수정
 
 DELETE /api/users/me                     # 내 계정 삭제
 
-POST   /api/users/me/revive              # 내 계정 복구
+POST   /api/users/me/restoration         # 내 계정 복구
 
 GET    /api/users/{studentId}            # 특정 사용자 조회
 
@@ -87,11 +87,13 @@ GET    /api/events/past                        # 지난 이벤트 조회
 
 GET    /api/events/{eventType}                 # 타입별 이벤트 조회
 
-PATCH  /api/events/{eventId}                   # 이벤트 수정
+PATCH  /api/events/{eventId}                   # 이벤트 수정 (body: {status: "active" | "inactive"})
 
-PATCH  /api/events/{eventId}/activate          # 이벤트 활성화
+PATCH  /api/events/{eventId}                   # 이벤트 상태 수정
 
-PATCH  /api/events/{eventId}/deactivate        # 이벤트 비활성화
+[//]: # (PATCH  /api/events/{eventId}/activate          # 이벤트 활성화)
+
+[//]: # (PATCH  /api/events/{eventId}/deactivate        # 이벤트 비활성화)
 
 DELETE /api/events/{eventId}                   # 이벤트 삭제
 
